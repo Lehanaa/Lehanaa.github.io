@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>member</title>
+</head>
+<body>
+    <iframe src="./Log In.html" frameborder="0"></iframe>
+    <script>
+    // load이벤트 핸들러
+    window.addEventListener('load', () => {
+            renderMember();
+        })
+    </script>
+    <!-- <form action="javascript:saveMember();" name="memberFrm"> -->
+<table id="tbl-member">
+<thead>
+    <tr>
+        <th>NO</th>
+        <th>아이디</th>
+        <th>비밀번호</th>
+        <th>이름</th>
+        <th>이메일</th>
+        <th>전화번호</th>
+    </tr>
+</thead>
+<tbody></tbody>
+</table>
+<style>
+#tbl-member{
+    margin: 30px 0;
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+#tbl-member th, #tbl-member td {
+    border: 1px solid black;
+    padding: 3px;
+}
+</style>
+<script>
+    class Member{
+        constructor(userId, pwd, userName, email, option, tel1, tel2, tel3){
+            this.userId = userId;
+            this.pwd = pwd;
+            this.userName = userName;
+            this.email = email;
+            this.option = option;
+            this.tel1 = tel1;
+            this.tel2 = tel2;
+            this.tel3 = tel3;
+        }
+    }
+    /**
+     * submit핸들러 - 유효성검사
+     */
+    document.memberFrm.addEventListener("submit", (e) => {
+        if(!userId.value){
+            alert("아이디를 입력해주세요.")
+            e.preventDefault();
+            return;
+        }
+        if(!pwd.value){
+            alert("비밀번호를 입력해주세요.")
+            e.preventDefault();
+            return;
+        }
+        if(!userName.value){
+            alert("이름을 입력해주세요.")
+            e.preventDefault();
+            return;
+        }
+        if(!email.value){
+            alert("이메일을 입력해주세요.")
+            e.preventDefault();
+            return;
+        }
+        if(!option.value){
+            alert("이메일주소를 선택해주세요.")
+            e.preventDefault();
+            return;
+        }
+        if(!tel1.value){
+            alert("전화번호를 입력해주세요.")
+            e.preventDefault();
+            return;
+        }
+        if(!tel2.value){
+            alert("전화번호를 입력해주세요.")
+            e.preventDefault();
+            return;
+        }
+        if(!tel3.value){
+            alert("전화번호를 입력해주세요.")
+            e.preventDefault();
+            return;
+        }
+    });
+    /**
+     * 폼제출 - localStorage에 저장
+     */
+    const saveMember = () => {
+        // 1. 객체 생성
+        const member = new Member(userId, pwd, userName, email, option, tel1, tel2, tel3);
+        console.log(member);
+
+        // 2. 배열에 추가
+        const members = JSON.parse(localStorage.getItem('members')) ||[];
+        members.push(member);
+        console.log(members);
+
+        // 3. localStorage에 저장
+        localStorage.setItem('members', JSON.stringify(members));
+
+        // 4. 초기화
+        document.memberFrm.reset();
+
+        // 5. 렌더링
+        renderMember(members);
+    };
+    const renderMember = (members = JSON.parse(localStorage.getItem('members'))) => {
+        const tbody = document.querySelector("#tbl-member tbody");
+        tbody.innerHTML = ""; //기존코드제거
+
+        if(members.length){
+            members.forEach(({userId, pwd, userName, email, option, tel1, tel2, tel3},index) => {
+               
+                tbody.innerHTML +=`
+                <tr>
+                    <td>${index+1}</td>
+                    <td>${userId}</td>
+                    <td>${pwd}</td>
+                    <td>${userName}</td>
+                    <td>${email}${option}</td>
+                    <td>${tel1}-${tel2}-${tel3}</td>
+                </tr>
+                `
+            });
+        }
+        else{
+            tbody.innerHTML = '<tr><td colsapn="6" style="text-align:center;">등록된 회원이 없습니다.</td></tr>'
+        }
+    }
+</script>
+</body>
+</html>

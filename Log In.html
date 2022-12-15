@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="Log In_style.css">
+    <link rel="stylesheet" href="member.html">
+    <style> 
+        @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@500&family=Dancing+Script:wght@700&family=Josefin+Sans:ital,wght@0,400;1,300&family=Josefin+Slab:ital,wght@0,600;1,600&family=Lobster+Two&family=Marhey:wght@300&family=Righteous&display=swap'); 
+    </style>
+    <title>Log In</title>
+</head>
+<body>
+    <div id="container">
+    <div id="manu">
+            <ul>
+                <a href="hnfirst.html">
+                    <li>Main</li>
+                </a>
+                <a href="Introduce.html">
+                    <li>Introduce</li>
+                </a>
+                <a href="Travel.html">
+                    <li>Travel</li>
+                </a>
+                <a href="Goal.html">
+                    <li>Goal</li>
+                </a>
+                <a href="Log In.html">
+                    <li>Log In</li>
+                </a>
+            </ul>
+    </div>
+    <hr>
+    <div class="form">
+        <h2>회원가입</h2>
+        <p>* 이 필드는 필수입니다.</p>
+    <hr id="sec">
+    <!-- </form> -->
+    <!-- <form action="javascript:alert('제출성공');" id="memberFrm" name="memberFrm"> -->
+        <form action="javascript:saveMember();" id="memberFrm" name="memberFrm">
+        
+        <table id="enroll">
+            <tr>
+                <td>
+                    <input type="text" name="userId" id="userId" required placeholder="아이디 *">
+                    <p>영소문자, 숫자만 가능(4~12자리, 소문자로 시작)</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <input type="password" name="pwd" id="pwd" required placeholder="비밀번호 *">
+                    <p>숫자/문자/특수문자(!@&*())포함(8~15자리)</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <input type="password" id="pwdCheck" placeholder="비밀번호 확인">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <input type="text" name="userName" id="userName" required placeholder="이름 *"> 
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <input type="email" name="email" id="email" required placeholder="이메일 *">
+                    <!-- <td> -->
+                        <!-- <select name="Email" id="Email" required>
+                            <option value="@gmaile.com">gmail.com</option>
+                            <option value="@hanmail.net">hanmail.net</option>
+                            <option value="@naver.com">naver.com</option>
+                        </select>           -->
+                    <!-- </td>           -->
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <input type="text" name="tel1" id="tel1" class="phone" required placeholder="전화번호 *"> -
+                    <input type="text" name="tel2" id="tel2" class="phone" required> -
+                    <input type="text" name="tel3" id="tel3" class="phone" required>
+                </td>
+            </tr>
+        </table>
+        <div>
+            <button type="submit" class="btnSubmit">가입하기</button>
+        </div>
+        
+    </form>
+    <br><br><br><br><br>
+    <script>
+        
+        document.memberFrm.onsubmit = function(){
+           //1.아이디검사
+           //첫글자는 반드시 영소문자로 이루어지고, 
+           if(!/^[a-z][a-z\d]{3,11}$/.test(userId.value)){
+               alert("첫글자는 반드시 영소문자이어야합니다.");
+               return false;
+           }
+           //숫자가 하나이상 포함되어야함.
+           if(!/[0-9]/.test(userId.value)){
+               alert("숫자가 하나이상 포함되어야 합니다.");
+               return false;
+   
+           //2.비밀번호 확인 검사
+           //숫자/문자/특수문자 포함 형태의 8~15자리 이내의 암호 정규식 
+           if(!/^.{8,15}$/.test(pwd.value)){
+                   alert("비밀번호는 8~12자리여야 합니다.");
+                   return false;
+               }
+            // 영문자 하나이상 포함
+               if(!/[a-z]/i.test(pwd.value)){
+                   alert("비밀번호는 영문자를 하나이상 포함해야 합니다.");
+                   return false;
+               }
+               // 숫자 하나이상 포함
+               if(!/\d/.test(pwd.value)){
+                   alert("비밀번호는 숫자를 하나이상 포함해야 합니다.");
+                   return false;
+               }
+               // 특수문자 (!@&*()) 하나이상 포함
+               if(!/[*!&]/.test(pwd.value)){
+                   alert("비밀번호는 다음 특수문자(!@&*()) 하나이상 포함해야 합니다.");
+                   return false;
+               }
+           //비밀번호일치여부 검사
+                if (!isEqualPwd()) {
+                return false;
+                }
+           //3.이름검사 : 한글2글자 이상만 허용. 
+               if(!/^[가-힣ㅏ-ㅣㄱ-ㅎ]{2,}$/.test(userName.value)){
+                   alert("2글자 이상 작성하십시요.");
+                   return false;
+               }
+           //4.이메일 검사
+           if(!/^[\w]{4,}@[\w]+(\.[\w]+){1,3}$/.test(email.value)){
+               alert("이메일을 정확히 입력해 주세요.");
+               return false;
+           }
+           //5. 전화번호 검사
+           if(!/^\d{2,}/.test(tel1.value)){
+               alert("전화번호를 두자리수 이상 입력해야 합니다.");
+               return false;
+           }
+           if(!/^\d{3,}/.test(tel2.value)){
+               alert("전화번호를 세자리수 이상 입력해야 합니다.");
+               return false;
+           }
+           if(!/^\d{4}/.test(tel3.value)){
+               alert("전화번호를 네자리수 이상 입력해야 합니다.");
+               return false;
+           }
+           return true;
+           alert("제출성공");
+           
+       }};
+       // load이벤트 핸들러
+    window.addEventListener('load', () => {
+            renderMember();
+        })
+       </script>
+        
+    
+<table id="tbl-member">
+<thead>
+    <tr>
+        <th>NO</th>
+        <th>아이디</th>
+        <th>비밀번호</th>
+        <th>이름</th>
+        <th>이메일</th>
+        <th>전화번호</th>
+    </tr>
+</thead>
+<tbody></tbody>
+</table>
+<style>
+#tbl-member{
+    margin: 30px 0;
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+#tbl-member th, #tbl-member td {
+    border: 1px solid black;
+    padding: 3px;
+}
+</style>
+<script>
+    class Member{
+        constructor(userId, pwd, userName, email, tel1, tel2, tel3){
+            this.userId = userId;
+            this.pwd = pwd;
+            this.userName = userName;
+            this.email = email;
+            this.tel1 = tel1;
+            this.tel2 = tel2;
+            this.tel3 = tel3;
+        }
+    }
+    /**
+     * submit핸들러 - 유효성검사
+     */
+    document.memberFrm.addEventListener("submit", (e) => {
+        if(!userId.value){
+            alert("아이디를 입력해주세요.")
+            e.preventDefault();
+            return;
+        }
+        if(!pwd.value){
+            alert("비밀번호를 입력해주세요.")
+            e.preventDefault();
+            return;
+        }
+        if(!userName.value){
+            alert("이름을 입력해주세요.")
+            e.preventDefault();
+            return;
+        }
+        if(!email.value){
+            alert("이메일을 입력해주세요.")
+            e.preventDefault();
+            return;
+        }
+        // if(!option.value){
+        //     alert("이메일주소를 선택해주세요.")
+        //     e.preventDefault();
+        //     return;
+        // }
+        if(!tel1.value){
+            alert("전화번호를 입력해주세요.")
+            e.preventDefault();
+            return;
+        }
+        if(!tel2.value){
+            alert("전화번호를 입력해주세요.")
+            e.preventDefault();
+            return;
+        }
+        if(!tel3.value){
+            alert("전화번호를 입력해주세요.")
+            e.preventDefault();
+            return;
+        }
+    });
+    /**
+     * 폼제출 - localStorage에 저장
+     */
+    const saveMember = () => {
+        // 1. 객체 생성
+        const member = new Member(userId.value, pwd.value, userName.value, email.value, tel1.value, tel2.value, tel3.value);
+        console.log(member);
+
+        // 2. 배열에 추가
+        const members = JSON.parse(localStorage.getItem('members')) ||[];
+        members.push(member);
+        console.log(members);
+
+        // 3. localStorage에 저장
+        localStorage.setItem('members', JSON.stringify(members));
+
+        // 4. 초기화
+        document.memberFrm.reset();
+
+        // 5. 렌더링
+        renderMember(members);
+    };
+    const renderMember = (members = JSON.parse(localStorage.getItem('members'))) => {
+        const tbody = document.querySelector("#tbl-member tbody");
+        tbody.innerHTML = ""; //기존코드제거
+
+        if(members.length){
+            members.forEach(({userId, pwd, userName, email, tel1, tel2, tel3},index) => {
+               
+                tbody.innerHTML +=`
+                <tr>
+                    <td>${index+1}</td>
+                    <td>${userId}</td>
+                    <td>${pwd}</td>
+                    <td>${userName}</td>
+                    <td>${email}</td>
+                    <td>${tel1}-${tel2}-${tel3}</td>
+                </tr>
+                `
+                           
+            });
+        }
+        else{
+            tbody.innerHTML = '<tr><td colsapn="6" style="text-align:center;">등록된 회원이 없습니다.</td></tr>'
+        }
+
+    }
+       </script>
+       
+
+</body>
+</html>

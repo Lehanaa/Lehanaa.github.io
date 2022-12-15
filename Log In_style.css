@@ -1,0 +1,116 @@
+#container {
+    width: 1024px;
+    margin: 0 auto;
+}
+
+ul{
+    list-style-type: none;
+    color: black;
+    font-family: 'Cinzel', serif;
+    display: flex;
+    justify-content: space-around;
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+a {
+    text-decoration-line: none;
+}
+hr{
+    margin-bottom: 20px;
+}
+li{
+    color: black;
+    font-size: x-large;
+    display: inline;
+}
+li:hover{
+    color: rgb(165, 165, 165);
+}
+
+
+#sec{
+    margin-top: 30px;
+    /* margin-bottom: 30px; */
+    height: 1px;
+    background: black;
+    width: 950px;
+}
+/* .form{
+    width: 900px;
+    height: 900px;
+    margin: auto;
+    padding-top: 20px;
+} */
+.form h2{
+    text-align: left;
+    
+    /* padding-top: 25px;
+    padding-bottom: 25px; */
+    padding-left: 50px;
+    display: inline;    
+    /* margin-bottom: 30px;
+    margin-top: 30px; */
+}
+p {
+    display: inline;
+    float: right;
+    /* margin: 0 auto; */
+    /* padding-left: 300px; */
+    text-align: right;
+    font-size: 15px;
+    padding-right: 40px;
+}
+table {
+    text-align: left;
+    font-size: 20px;
+    padding-left: 50px;
+    margin: 50px auto;
+}
+td{
+    display: inline;
+}
+tr{
+    display: block;
+    padding-right: 15px;
+    padding-bottom: 30px;
+}
+table tr td p{
+    margin: 0 auto;
+    padding: 15px 0 0 25px;
+    display: inline;
+    float: inherit;
+    font-size: 15px;
+}
+td{
+    display: inline;
+}
+input{
+    width: 25%;
+    height: 44px;
+    font-size: 16px;
+    font-weight: inherit;
+}
+select {
+    height: 50px;
+    font-size: 16px;
+    font-weight: inherit;
+    width: 150px;
+  }
+/* option {
+} */
+form div{
+    text-align: center;
+}
+.btnSubmit{
+    height: 44px;
+    width: 200px;
+    /* line-height: 44px; */
+    padding: 0 10px;
+    font-size: 16px;
+    color: white;
+    background: black;
+    display: inline-block;
+    text-align: center;
+    box-sizing: border-box;
+    cursor: pointer;
+}
